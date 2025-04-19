@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Order Game</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      color: #2b4f81;
+    }
+    .question {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      font-size: 18px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔤 Word Order Game</h1>
+    <div class="question" id="question">Loading...</div>
+    <input type="text" id="answer" placeholder="Type your sentence here" />
+    <br />
+    <button onclick="checkAnswer()">Check</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { jumbled: "have / I / never / seen / a / rainbow / so / big", answer: "I have never seen a rainbow so big" },
+      { jumbled: "My / often / in / plays / the / brother / football / afternoon", answer: "My brother often plays football in the afternoon" },
+      { jumbled: "We / to / going / are / the / zoo / tomorrow", answer: "We are going to the zoo tomorrow" },
+      { jumbled: "cooking / She / delicious / dinner / is / a", answer: "She is cooking a delicious dinner" },
+      { jumbled: "study / at / They / 7 / night / usually", answer: "They usually study at 7 at night" },
+      { jumbled: "There / many / are / animals / in / the / forest", answer: "There are many animals in the forest" },
+      { jumbled: "don’t / I / like / watching / horror / movies", answer: "I don’t like watching horror movies" },
+      { jumbled: "What / your / favorite / is / subject?", answer: "What is your favorite subject?" },
+      { jumbled: "summer / in / hot / It / very / is", answer: "It is very hot in summer" },
+      { jumbled: "wearing / He / a / yellow / hat / is", answer: "He is wearing a yellow hat" },
+      { jumbled: "always / We / clean / our / classroom / after / class", answer: "We always clean our classroom after class" },
+      { jumbled: "How / you / go / do / to / school?", answer: "How do you go to school?" },
+      { jumbled: "She / a / playing / piano / is / the / beautifully", answer: "She is playing the piano beautifully" },
+      { jumbled: "parents / My / to / went / shopping / yesterday", answer: "My parents went shopping yesterday" },
+      { jumbled: "birds / sky / The / in / are / flying / the", answer: "The birds are flying in the sky" }
+    ];
+
+    let current = 0;
+
+    function showQuestion() {
+      document.getElementById("question").textContent = `🧩 Arrange this: ${questions[current].jumbled}`;
+      document.getElementById("answer").value = "";
+      document.getElementById("result").textContent = "";
+    }
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+      const correctAnswer = questions[current].answer.toLowerCase();
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById("result").textContent = "✅ Correct!";
+      } else {
+        document.getElementById("result").textContent = `❌ Try again. Hint: It should be: "${questions[current].answer}"`;
+      }
+
+      current++;
+      if (current < questions.length) {
+        setTimeout(showQuestion, 2000);
+      } else {
+        setTimeout(() => {
+          document.getElementById("question").textContent = "🎉 You've finished all questions!";
+          document.getElementById("answer").style.display = "none";
+        }, 2000);
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
